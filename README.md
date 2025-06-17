@@ -2,7 +2,7 @@
 
 ## Tic Tac Toe - The Odin Project
 
-A vibrant Coldplay-themed Tic Tac Toe game with Google-inspired design, responsive layout and CSS animations. Features modern JavaScript patterns with a module-based architecture and dynamic sound wave visualization.
+A clean, responsive Tic Tac Toe game with Google-inspired design, featuring modern JavaScript patterns and CSS animations. The game has a vibrant Coldplay theme with rainbow sound bars and animated gradient title.  
 
 ## Features
 
