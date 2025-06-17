@@ -1,17 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Tic Tac Toe</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coldplay Tic Tac Toe</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Rainbow sound bars -->
+  <div class="sound-bars">
+    <div class="bar" style="--i:0; --h:20;"></div>
+    <div class="bar" style="--i:1; --h:60;"></div>
+    <div class="bar" style="--i:2; --h:40;"></div>
+    <div class="bar" style="--i:3; --h:80;"></div>
+    <div class="bar" style="--i:4; --h:30;"></div>
+    <div class="bar" style="--i:5; --h:70;"></div>
+    <div class="bar" style="--i:6; --h:50;"></div>
+    <div class="bar" style="--i:7; --h:90;"></div>
+    <div class="bar" style="--i:8; --h:35;"></div>
+    <div class="bar" style="--i:9; --h:65;"></div>
+    <div class="bar" style="--i:10; --h:45;"></div>
+    <div class="bar" style="--i:11; --h:75;"></div>
+    <div class="bar" style="--i:12; --h:25;"></div>
+    <div class="bar" style="--i:13; --h:55;"></div>
+    <div class="bar" style="--i:14; --h:85;"></div>
+  </div>
+  
   <div class="game-container">
-    <h1>Tic Tac Toe</h1>
-    <div id="board" class="board"></div>
+    <h1>
+      <span class="coldplay-title">COLDPLAY</span>
+      <span class="game-title">Tic Tac Toe</span>
+    </h1>
+    
+    <div class="board" id="board"></div>
+    
+    <div class="scores-container">
+      <div class="score-box">
+        <div class="score-label">X Wins</div>
+        <div class="score-value" id="x-score">0</div>
+      </div>
+      <div class="score-box">
+        <div class="score-label">O Wins</div>
+        <div class="score-value" id="o-score">0</div>
+      </div>
+      <div class="score-box">
+        <div class="score-label">Draws</div>
+        <div class="score-value" id="draw-score">0</div>
+      </div>
+    </div>
+    
+    <div class="status" id="status">Current player: X</div>
+    
     <div class="controls">
-      <button id="reset">New Game</button>
+      <button id="reset">
+        <i class="fas fa-sync-alt"></i> New Game
+      </button>
+      <button id="music-btn">
+        <i class="fas fa-music"></i> Play Music
+      </button>
     </div>
   </div>
+
   <script src="game.js"></script>
 </body>
 </html>
