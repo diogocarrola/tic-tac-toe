@@ -1,6 +1,6 @@
 // Game Module (IIFE)
 const Game = (() => {
-  // Private variables
+  // Private state
   let board = ['', '', '', '', '', '', '', '', ''];
   let currentPlayer = 'X';
   let gameActive = true;
@@ -52,82 +52,99 @@ const Game = (() => {
     },
     
     getBoard() {
-      return [...board]; // Return a copy of the board
+      return [...board];
     },
     
     getCurrentPlayer() {
-      return currentPlayer; // Return current player
+      return currentPlayer;
     },
     
     getScores() {
-      return { ...scores }; // Return a copy of the scores
+      return { ...scores };
     }
   };
 })();
 
-// Display Controller Module (IIFE)
-const DisplayController = (() => {
+// Display Controller
+document.addEventListener('DOMContentLoaded', () => {
   const boardElement = document.getElementById('board');
   const resetButton = document.getElementById('reset');
-  const statusElement = document.createElement('div');
-  statusElement.className = 'status';
-  boardElement.parentNode.insertBefore(statusElement, boardElement.nextSibling);
+  const musicButton = document.getElementById('music-btn');
+  const statusElement = document.getElementById('status');
+  const xScoreElement = document.getElementById('x-score');
+  const oScoreElement = document.getElementById('o-score');
+  const drawScoreElement = document.getElementById('draw-score');
   
+  // Open Coldplay playlist
+  musicButton.addEventListener('click', () => {
+    window.open('https://music.youtube.com/playlist?list=PLsvoYlzBrLFAJd4hNQSHw1lYjDKeQB_iU', '_blank');
+  });
+  
+  // Render game board
   const renderBoard = () => {
     boardElement.innerHTML = '';
     Game.getBoard().forEach((cell, index) => {
       const cellElement = document.createElement('div');
       cellElement.classList.add('cell');
-      cellElement.textContent = cell;
+      if (cell) {
+        cellElement.textContent = cell;
+      }
       cellElement.dataset.index = index;
       boardElement.appendChild(cellElement);
     });
   };
   
-  const updateStatus = () => {
+  // Update scores display
+  const updateScores = () => {
     const scores = Game.getScores();
-    statusElement.innerHTML = `
-      <p>Current Player: ${Game.getCurrentPlayer()}</p>
-      <p>Scores - X: ${scores.X} | O: ${scores.O} | Draws: ${scores.draws}</p>
-    `;
+    xScoreElement.textContent = scores.X;
+    oScoreElement.textContent = scores.O;
+    drawScoreElement.textContent = scores.draws;
   };
   
+  // Update game status
+  const updateStatus = () => {
+    statusElement.textContent = `Current player: ${Game.getCurrentPlayer()}`;
+  };
+  
+  // Handle cell clicks
   const handleCellClick = (e) => {
     const index = e.target.dataset.index;
     if (index === undefined) return;
     
-    const result = Game.makeMove(index);
+    const result = Game.makeMove(parseInt(index));
     if (result) {
       render();
       if (result.winner) {
-        setTimeout(() => alert(`${result.winner} wins!`), 10);
+        setTimeout(() => alert(`${result.winner} wins!`), 100);
       } else if (result.draw) {
-        setTimeout(() => alert("It's a draw!"), 10);
+        setTimeout(() => alert("It's a draw!"), 100);
       }
     }
   };
   
-  const render = () => {
-    renderBoard();
-    updateStatus();
-  };
-  
-  const initEventListeners = () => {
-    boardElement.addEventListener('click', handleCellClick);
-    resetButton.addEventListener('click', () => {
-      Game.reset();
-      render();
-    });
-  };
-  
-  // Initialize game
-  const init = () => {
-    initEventListeners();
+  // Reset game
+  const resetGame = () => {
+    Game.reset();
     render();
   };
   
-  return { init };
-})();
-
-// Start the game
-DisplayController.init();
+  // Main render function
+  const render = () => {
+    renderBoard();
+    updateScores();
+    updateStatus();
+  };
+  
+  // Initialize event listeners
+  boardElement.addEventListener('click', handleCellClick);
+  resetButton.addEventListener('click', resetGame);
+  
+  // Start with sample scores
+  Game.getScores().X = 3;
+  Game.getScores().O = 2;
+  Game.getScores().draws = 1;
+  
+  // Initial render
+  render();
+});
